@@ -1,0 +1,72 @@
+main:
+  # Print prompt1
+  li $v0, 4 # Read 4 into $v0 => Instruction for printing string in $a0
+  la $a0, prompt1 # Read prompt1 into $a0
+  syscall
+  # Read an integer into $v0
+  li $v0, 5 # 5 => Instruction for reading an integer
+  syscall
+  move $t0, $v0 # Copy $v0 to $t0
+
+  # Print prompt2
+  li $v0, 4 # Read 4 into $v0 => Instruction for printing string in $a0
+  la $a0, prompt2 # Read prompt1 into $a0
+  syscall
+  # Read an integer into $v0
+  li $v0, 5 # 5 => Instruction for reading an integer
+  syscall
+  move $t1, $v0 # Copy $v0 to $t1
+
+  # Calculations
+  sub $t2, $t1, $t0 # t2 = t0 - t1
+  add $t2, $t2, 1
+
+  add $t3, $t0, $t1
+
+  mul $t2, $t2, $t3
+
+  div $t2, $t2, 2
+
+  # Print answer1
+  li $v0, 4 # Read 4 into $v0 => Instruction for printing string in $a0
+  la $a0, answer1 # Read prompt1 into $a0
+  syscall
+
+  li $v0, 1
+  move $a0, $t0
+  syscall
+
+  # Print answer2
+  li $v0, 4 # Read 4 into $v0 => Instruction for printing string in $a0
+  la $a0, answer2 # Read prompt1 into $a0
+  syscall
+
+  li $v0, 1
+  move $a0, $t1
+  syscall
+
+  # Print answer3
+  li $v0, 4 # Read 4 into $v0 => Instruction for printing string in $a0
+  la $a0, answer3 # Read prompt1 into $a0
+  syscall
+
+  li $v0, 1
+  move $a0, $t2
+  syscall
+
+  # Print newline
+  li $v0, 4 # Read 4 into $v0 => Instruction for printing string in $a0
+  la $a0, newline # Read prompt1 into $a0
+  syscall
+
+  li $v0, 10
+  syscall
+
+.data
+  prompt1: .asciiz "Enter first number: "
+  prompt2: .asciiz "Enter second number: "
+
+  answer1: .asciiz "The sum of all numbers between "
+  answer2: .asciiz " and "
+  answer3: .asciiz " (inclusive) is: "
+  newline: .asciiz "\n"

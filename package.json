@@ -1,0 +1,20 @@
+{
+  "name": "mips",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "parser": "cd parser && npx ts-node-esm src/index.ts",
+    "parser-build": "cd parser && npx tsc --build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/node": "^17.0.39",
+    "ts-node": "^10.8.1",
+    "tsc-watch": "^5.0.3",
+    "typescript": "^4.7.3"
+  }
+}

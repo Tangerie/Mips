@@ -1,3 +1,6 @@
+.globl main
+
+.text
 main:
   # Print prompt1
   li $v0, 4 # Read 4 into $v0 => Instruction for printing string in $a0

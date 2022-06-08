@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "SSH FS - unsw",
+			"uri": "ssh://unsw/import/ravel/3/z5417665/Coding"
+		}
+	],
+	"settings": {}
+}

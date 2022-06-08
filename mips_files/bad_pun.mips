@@ -1,3 +1,5 @@
+.globl main
+
 .text
 main:
     # Print string
@@ -5,23 +7,21 @@ main:
     la $a0, pun # Read prompt1 into $a0
     syscall
 
-.data namespaceB
-    other_string: .asciiz "Well, this was a bad pun!\n"
-    
-.text
     # Print string
     li $v0, 4 # Read 4 into $v0 => Instruction for printing string in $a0
     la $a0, other_string # Read prompt1 into $a0
     syscall
 
     # Print int
-    li $v0, 4
+    li $v0, 1
     la $a0, number # Read prompt1 into $a0
     syscall
 
+end:
     li $v0, 10
     syscall
 
-.data namespaceA
+.data
     pun: .asciiz "Well, this was a MIPStake!\n"
+    other_string: .asciiz "Well, this was a bad pun!\n"
     number: .word 4546456

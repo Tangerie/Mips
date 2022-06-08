@@ -1,4 +1,5 @@
-import { findDirectives, reconstruct } from "./parser/directives";
+import { findDirectives } from "./parser/directives";
+import { parseInstructions } from "./parser/procedures";
 import PrettyPrint from "./PrettyPrint";
 
 export function parseText(text : string) {
@@ -7,5 +8,7 @@ export function parseText(text : string) {
     console.log("\n=== DIRECTIVES ===");
     PrettyPrint(...ds);
 
-    console.log(reconstruct(ds));
+    console.log("\n=== PROCEDURES ===");
+    const ps = parseInstructions(text, ds);
+    PrettyPrint(...ps);
 }

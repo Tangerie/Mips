@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "parser": "cd parser && npx ts-node-esm src/index.ts",
-    "parser-build": "cd parser && npx tsc --build"
+    "parser": "cd new_parser && npx ts-node-esm src/index.ts",
+    "parser-build": "cd new_parser && npx tsc --build"
   },
   "author": "",
   "license": "ISC",

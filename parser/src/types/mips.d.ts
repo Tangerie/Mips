@@ -14,6 +14,7 @@ export type DirectiveType = DataDirectiveType | BlockDirectiveType | MiscDirecti
 export interface BaseDirective<T extends DirectiveType> {
     type: T;
     args: string;
+    start: integer;
 }
 
 export interface GloblDirective extends BaseDirective<"globl"> {
@@ -40,9 +41,7 @@ export interface DataDirective extends BaseParentalDirective<"data", ChildDirect
     value: string; // Data dec
 }
 
-export interface TextDirective extends BaseDirective<"text"> {
-    instructions: InstructionSet; // Code
-}
+export type TextDirective = BaseDirective<"text">;
 
 export type Directive = GloblDirective | 
                         WordDirective | 
@@ -52,3 +51,11 @@ export type Directive = GloblDirective |
 
 export type ParentalDirective = DataDirective;
 export type ChildDirective = WordDirective | AsciizDirective;
+
+
+export interface Procedure {
+    instructions : InstructionSet;
+    origin: TextDirective;
+    name: string;
+    start: number;
+}

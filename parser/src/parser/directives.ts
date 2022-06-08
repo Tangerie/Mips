@@ -17,18 +17,24 @@ export function findDirectives(text : string) : Directive[] {
     const found : Directive[] = [];
 
     const matches = [...text.matchAll(DIRECTIVE_REGEX)];
+    console.log(matches);
 
     let parent : ParentalDirective | null = null;
 
-    for(const [raw, name, dir, args, index, ..._] of matches) {
+    for(const match of matches) {
+        const [raw, name, dir, args, ..._] = match;
+        const index = match.index as number;
         const directiveType = dir as DirectiveType;
         let data : Directive | null;
+        
+        // console.log(index);
 
         switch(directiveType) {
             case "globl":
                 parent = null;
                 data = {
                     type: directiveType,
+                    start: index,
                     args: "",
                     value: args
                 }
@@ -36,6 +42,7 @@ export function findDirectives(text : string) : Directive[] {
             case "asciiz":
                 data = {
                     type: directiveType,
+                    start: index,
                     args: "",
                     value: args,
                     name: name
@@ -44,6 +51,7 @@ export function findDirectives(text : string) : Directive[] {
             case "word":
                 data = {
                     type: directiveType,
+                    start: index,
                     args: "",
                     value: parseInt(args),
                     name: name
@@ -52,6 +60,7 @@ export function findDirectives(text : string) : Directive[] {
             case "data": 
                 data = {
                     type: directiveType,
+                    start: index,
                     args: args,
                     value: "",
                     children: []
@@ -61,8 +70,8 @@ export function findDirectives(text : string) : Directive[] {
             case "text":
                 data = {
                     type: directiveType,
-                    args: args,
-                    instructions: []
+                    start: index,
+                    args: args
                 }
                 parent = null;
                 break;
@@ -89,24 +98,24 @@ all code
 .data
 all data (with namespaces)
 */
-export function reconstruct(dirs : Directive[]) : string {
-    let lines : string[] = [];
+// export function reconstruct(dirs : Directive[]) : string {
+//     let lines : string[] = [];
 
-    const textDirectives : TextDirective[] = dirs.filter(d => d.type == "text") as TextDirective[];
-    const dataDirectives : DataDirective[] = dirs.filter(d => d.type == "data") as DataDirective[];
+//     const textDirectives : TextDirective[] = dirs.filter(d => d.type == "text") as TextDirective[];
+//     const dataDirectives : DataDirective[] = dirs.filter(d => d.type == "data") as DataDirective[];
 
-    lines.push(".text");
-    for(const text of textDirectives) {
-        // Replace data names with namespaced
-        lines.push(...text.instructions);
-    }
+//     lines.push(".text");
+//     for(const text of textDirectives) {
+//         // Replace data names with namespaced
+//         lines.push(...text.instructions);
+//     }
 
-    lines.push('.data');
-    for(const data of dataDirectives) {
-        for(const child of data.children) {
-            lines.push(`    ${data.args == "" ? "" : data.args + '_'}${child.name}: ${child.type} ${child.value}`)
-        }
-    }
+//     lines.push('.data');
+//     for(const data of dataDirectives) {
+//         for(const child of data.children) {
+//             lines.push(`    ${data.args == "" ? "" : data.args + '_'}${child.name}: ${child.type} ${child.value}`)
+//         }
+//     }
 
-    return lines.join("\n");
-}
+//     return lines.join("\n");
+// }

@@ -41,8 +41,8 @@ fn tokens_to_file(tokens : Vec<Token>, path_out : PathBuf) -> Result<(), String>
     match output {
         Ok(x) => {
             match fs::write(path_out, x) {
-                Ok(_) => return Ok(()),
-                Err(_) => return Err("Failed to write file".to_string()),
+                Ok(_) => Ok(()),
+                Err(_) => Err("Failed to write file".to_string()),
             }
         }
         Err(x) => Err(x)

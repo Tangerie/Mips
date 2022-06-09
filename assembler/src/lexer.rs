@@ -395,7 +395,7 @@ impl Imm {
 }
 
 impl Token {
-    pub fn lex(content: &String) -> TokenResult {
+    pub fn lex(content: &str) -> TokenResult {
         let mut toks = Vec::new();
 
         for (token, span) in Tok::lexer(content).spanned() {
